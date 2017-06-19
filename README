@@ -1,0 +1,19 @@
+Initial Setup (IDE):
+1. Run Qt Creator app (qtcreator) - usually located in {Qt install directory}/Tools/QtCreator/bin
+2. Select the "Open Project" button and point it to "WheelOfJeopardy.pro" file
+3. I usually like to set my build directory under Tools->Options->Build & Run->Default build directory
+    - I have mine set to build/%{CurrentKit:FileSystemName}/%{CurrentBuild:Name}
+4. Press the hammer looking icon in the bottom corner
+
+Initial Setup (command line):
+1. cd to WheelOfJeopardy directory
+2. Run qmake with (I think the specific OS options)
+    - Linux: qmake
+    - Mac: qmake -spec macx-g++
+    - Windows (VS): qmake -tp vc
+3. Build
+    - Linux: make
+    - Mac: ?
+    - Windows (VS): Open Visual Studio generated .sln file
+
+Sorry I don't know Mac that well, but you should be fine using the Qt Creator IDE if you don't want to use the command line.  Also, if you go that route (or the Visual Studio way) please be sure to update the .gitignore file.
