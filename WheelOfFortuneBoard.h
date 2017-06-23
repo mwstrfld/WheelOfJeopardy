@@ -32,4 +32,6 @@ protected:
 
     // Helper for rotating wheel
     void rotateWheel();
+
+    QPixmap m_masterOrigImage;
 };

@@ -16,6 +16,10 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
 
     // Signal/slot connections
     connect( m_ui->spinButton, SIGNAL( pressed() ), SLOT( onSpinButtonPressed() ) );
+    
+    auto pixmap = m_ui->wheelLabel->pixmap();
+    Q_ASSERT(pixmap);
+    m_masterOrigImage = *pixmap;
 }
 
 
@@ -24,6 +28,13 @@ WheelOfFortuneBoard::~WheelOfFortuneBoard()
     delete m_ui;
 }
 
+inline int normalizedOrientation(int orientation)
+{
+    int normal = orientation % 360;
+    if (normal < 0)
+        normal += 360;
+    return normal;
+}
 
 void WheelOfFortuneBoard::rotateWheel()
 {
@@ -32,15 +43,23 @@ void WheelOfFortuneBoard::rotateWheel()
 
     // Translate, rotate, and translate back
     transform.translate( m_ui->wheelLabel->width()/2, m_ui->wheelLabel->height()/2 );
-    transform.rotate( 90 );
+    transform.rotate( normalizedOrientation(45 * m_spinCount) );
     transform.translate( -m_ui->wheelLabel->width()/2, -m_ui->wheelLabel->height()/2 );
 
     // Generate a new pixmap and apply transformation/rotation
-    auto pixmap = m_ui->wheelLabel->pixmap();
-    auto newPixmap = pixmap->transformed( transform );
+    // when we translate the pixmap, we change the size of the image
+    // rotating the original image 45 degrees causes the width of the new
+    // image to be the diagonal of the old, which is larger.  Then to fit the
+    // fixed label size, it scales down.  So we're cropping the image and fixing that.
+    // Keeping the orignal image each time so that after scaling and cropping 
+    // a bunch, It doesn't get fuzzy.
+    auto rotatedPixmap = m_masterOrigImage.transformed( transform );
+    int widthDifference = (rotatedPixmap.width() - m_masterOrigImage.width()) / 2;
+    int heightDifference = (rotatedPixmap.height() - m_masterOrigImage.height()) / 2;
+    rotatedPixmap = rotatedPixmap.copy(widthDifference, heightDifference, m_masterOrigImage.width(), m_masterOrigImage.height());
 
     // Update with the new pixmap.
-    m_ui->wheelLabel->setPixmap( newPixmap );
+    m_ui->wheelLabel->setPixmap(rotatedPixmap);
 }
 
 
