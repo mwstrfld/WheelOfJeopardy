@@ -11,7 +11,7 @@ namespace Ui
 }
 
 
-class JeopardyBoard : public QDialog 
+class JeopardyBoard : public QDialog
 {
     Q_OBJECT
 

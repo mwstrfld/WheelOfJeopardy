@@ -3,7 +3,7 @@
 
 
 JeopardyBoard::JeopardyBoard( QWidget* parent )
-    : QDialog( parent )
+    : QDialog( parent ),
       m_ui( new Ui::JeopardyBoard )
 {
     // Parent the actual UI

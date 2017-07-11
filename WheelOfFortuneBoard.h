@@ -23,6 +23,11 @@ protected slots:
     // Spin button handler
     void onSpinButtonPressed();
 
+    // Name change handlers
+    void onPlayer1NameChange( const QString& name );
+    void onPlayer2NameChange( const QString& name );
+    void onPlayer3NameChange( const QString& name );
+
 protected:
     // Spin counter
     unsigned short m_spinCount;
@@ -35,4 +40,9 @@ protected:
 
     // Original image pixmap
     QPixmap m_originalPixmap;
+
+    // Player names
+    QString m_player1Name;
+    QString m_player2Name;
+    QString m_player3Name;
 };
