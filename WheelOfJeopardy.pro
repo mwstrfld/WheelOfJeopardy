@@ -8,7 +8,8 @@ SOURCES  += main.cpp \
             WheelOfFortuneBoard.cpp \
             JeopardyBoard.cpp
 
-HEADERS  += WheelOfFortuneBoard.h \
+HEADERS  += WheelOfJeopardyTypes.h \
+            WheelOfFortuneBoard.h \
             JeopardyBoard.h
 
 FORMS    += WheelOfFortuneBoard.ui \

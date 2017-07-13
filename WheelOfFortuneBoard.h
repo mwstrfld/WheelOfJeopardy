@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <WheelOfJeopardyTypes.h>
+
 
 // Forward declarations
 namespace Ui
@@ -45,4 +47,16 @@ protected:
     QString m_player1Name;
     QString m_player2Name;
     QString m_player3Name;
+
+    // Turn state
+    Types::Player m_turnState;
+
+    // Current sector
+    Types::Sector m_currentSector;
+
+    // Main action function
+    void actUponNewSector();
+
+    // Advance the turn to next player
+    void advanceTurn();
 };
