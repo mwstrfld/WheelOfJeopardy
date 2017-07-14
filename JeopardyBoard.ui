@@ -30,13 +30,54 @@
     <widget class="QMenuBar" name="menubar"/>
    </item>
    <item row="1" column="0">
-    <widget class="QTableView" name="tableView">
+    <widget class="QTableWidget" name="jeopardyBoardTableWidget">
      <property name="minimumSize">
       <size>
        <width>675</width>
        <height>450</height>
       </size>
      </property>
+     <property name="rowCount">
+      <number>5</number>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
+     <column>
+      <property name="text">
+       <string>Category 1</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Category 2</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Category 3</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Category 4</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Category 5</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Category 6</string>
+      </property>
+     </column>
     </widget>
    </item>
   </layout>

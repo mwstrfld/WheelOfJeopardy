@@ -1,5 +1,6 @@
 #include <QDebug>
 
+#include <JeopardyBoard.h>
 #include <WheelOfFortuneBoard.h>
 #include <ui_WheelOfFortuneBoard.h>
 
@@ -13,7 +14,8 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
       m_player2Name( "Player 2" ),
       m_player3Name( "Player 3" ),
       m_turnState( Types::Player1 ),
-      m_currentSector( Types::Category1 )
+      m_currentSector( Types::SectorCategory1 ),
+      m_jeopardyBoard( 0 )
 {
     // Parent the actual UI
     m_ui->setupUi( this );
@@ -22,11 +24,16 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     m_ui->spinCountLineEdit->setReadOnly( true );
     m_ui->spinCountLineEdit->setText( QString::number( m_spinCount ) );
 
+    // Show Jeopardy Board
+    m_jeopardyBoard = new JeopardyBoard( this );
+    m_jeopardyBoard->show();
+
     // Signal/slot connections
     connect( m_ui->spinButton, SIGNAL( pressed() ), SLOT( onSpinButtonPressed() ) );
     connect( m_ui->player1NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer1NameChange(QString) ) );
     connect( m_ui->player2NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer2NameChange(QString) ) );
     connect( m_ui->player3NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer3NameChange(QString) ) );
+    connect( this, SIGNAL( categoryChosen(Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Category) ) );
 
     // Initialize the Scoreboard Player names
     auto player1Item = new QTableWidgetItem( m_player1Name );
@@ -54,6 +61,7 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
 WheelOfFortuneBoard::~WheelOfFortuneBoard()
 {
     delete m_ui;
+    delete m_jeopardyBoard;
 }
 
 
@@ -140,45 +148,38 @@ void WheelOfFortuneBoard::onPlayer3NameChange( const QString& name )
 
 void WheelOfFortuneBoard::actUponNewSector()
 {
-    // Test code for now to make sure sector matches wheel
     // TODO: Implement flow chart from SRS document
     switch( m_currentSector )
     {
-    case Types::Category1:
-        m_ui->statusLabel->setText( "Category 1" );
+    case Types::SectorCategory1:
+        emit categoryChosen( Types::Category::Category1 );
         break;
     case Types::LoseTurn:
-        m_ui->statusLabel->setText( "Lose Turn" );
         break;
-    case Types::Category2:
-        m_ui->statusLabel->setText( "Category 2" );
+    case Types::SectorCategory2:
+        emit categoryChosen( Types::Category::Category2 );
         break;
     case Types::FreeTurn:
-        m_ui->statusLabel->setText( "Free Turn" );
         break;
-    case Types::Category3:
-        m_ui->statusLabel->setText( "Category 3" );
+    case Types::SectorCategory3:
+        emit categoryChosen( Types::Category::Category3 );
         break;
     case Types::Bankrupt:
-        m_ui->statusLabel->setText( "Bankrupt" );
         break;
-    case Types::Category4:
-        m_ui->statusLabel->setText( "Category 4" );
+    case Types::SectorCategory4:
+        emit categoryChosen( Types::Category::Category4 );
         break;
     case Types::PlayerChoice:
-        m_ui->statusLabel->setText( "Player's Choice" );
         break;
-    case Types::Category5:
-        m_ui->statusLabel->setText( "Category 5" );
+    case Types::SectorCategory5:
+        emit categoryChosen( Types::Category::Category5 );
         break;
     case Types::OpponentChoice:
-        m_ui->statusLabel->setText( "Opponents' Choice" );
         break;
-    case Types::Category6:
-        m_ui->statusLabel->setText( "Category 6" );
+    case Types::SectorCategory6:
+        emit categoryChosen( Types::Category::Category6 );
         break;
     case Types::SpinAgain:
-        m_ui->statusLabel->setText( "Spin Again" );
         break;
     default:
         break;
@@ -188,22 +189,22 @@ void WheelOfFortuneBoard::actUponNewSector()
 
 void WheelOfFortuneBoard::advanceTurn()
 {
-    QString str = "Player ";
+    QString str = "";
 
     // Set to next player
     switch( m_turnState )
     {
     case Types::Player1:
         m_turnState = Types::Player2;
-        str.append( "2" );
+        str=  m_player2Name;
         break;
     case Types::Player2:
         m_turnState = Types::Player3;
-        str.append( "3" );
+        str = m_player3Name;
         break;
     case Types::Player3:
         m_turnState = Types::Player1;
-        str.append( "1" );
+        str = m_player1Name;
         break;
     default:
         break;

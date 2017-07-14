@@ -12,22 +12,34 @@ namespace Types
         Player3
     };
 
+    // Category enumeration used to pass control to
+    // the JeopardyBoard from WheelOfFortuneBoard
+    enum Category
+    {
+        Category1,
+        Category2,
+        Category3,
+        Category4,
+        Category5,
+        Category6
+    };
+
     // Sector enumeration used for keeping track of
     // where the wheel lands - NOTE: DO NOT CHANGE
     // ORDER, FIXED TO SECTOR ORDER ON WHEEL IMAGE
     enum Sector
     {
-        Category1,
+        SectorCategory1,
         LoseTurn,
-        Category2,
+        SectorCategory2,
         FreeTurn,
-        Category3,
+        SectorCategory3,
         Bankrupt,
-        Category4,
+        SectorCategory4,
         PlayerChoice,
-        Category5,
+        SectorCategory5,
         OpponentChoice,
-        Category6,
+        SectorCategory6,
         SpinAgain
     };
 }

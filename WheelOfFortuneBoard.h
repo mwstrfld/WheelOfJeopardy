@@ -7,6 +7,7 @@
 
 
 // Forward declarations
+class JeopardyBoard;
 namespace Ui
 {
     class WheelOfFortuneBoard;
@@ -20,6 +21,9 @@ class WheelOfFortuneBoard : public QMainWindow
 public:
     WheelOfFortuneBoard( QWidget* parent = 0 );
     ~WheelOfFortuneBoard();
+
+signals:
+    void categoryChosen( Types::Category category );
 
 protected slots:
     // Spin button handler
@@ -59,4 +63,6 @@ protected:
 
     // Advance the turn to next player
     void advanceTurn();
+
+    JeopardyBoard* m_jeopardyBoard;
 };

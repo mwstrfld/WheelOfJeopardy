@@ -15,3 +15,10 @@ JeopardyBoard::~JeopardyBoard()
 {
     delete m_ui;
 }
+
+
+void JeopardyBoard::onCategoryChosen( Types::Category )
+{
+    // TODO: Make sure Qt signal/slot connection hits here,
+    //       use QAF to get next question and answer.
+}

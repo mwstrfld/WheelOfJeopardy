@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+#include <WheelOfJeopardyTypes.h>
+
 
 // Forward declarations
 namespace Ui
@@ -18,6 +20,9 @@ class JeopardyBoard : public QDialog
 public:
     JeopardyBoard( QWidget* parent = 0 );
     ~JeopardyBoard();
+
+public slots:
+    void onCategoryChosen( Types::Category );
 
 protected:
     Ui::JeopardyBoard* m_ui;
