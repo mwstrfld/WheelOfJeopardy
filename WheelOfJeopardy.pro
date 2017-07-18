@@ -7,12 +7,14 @@ CONFIG  += c++11
 SOURCES  += main.cpp \
             WheelOfFortuneBoard.cpp \
             JeopardyBoard.cpp \
-            QuestionAndAnswerFacilitator.cpp
+            QuestionAndAnswerFacilitator.cpp \
+            PointManager.cpp
 
 HEADERS  += WheelOfJeopardyTypes.h \
             WheelOfFortuneBoard.h \
             JeopardyBoard.h \
-            QuestionAndAnswerFacilitator.h
+            QuestionAndAnswerFacilitator.h \
+            PointManager.h
 
 FORMS    += WheelOfFortuneBoard.ui \
             JeopardyBoard.ui

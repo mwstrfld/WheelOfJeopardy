@@ -12,6 +12,30 @@ namespace Types
         Player3
     };
 
+    // Point value enumeration used for letting the
+    // PM class know the value to subtract or add
+    // during the first round of Jeopardy (suffix: 1)
+    enum FirstRoundPointValue
+    {
+        TwoHundred1,
+        FourHundred1,
+        SixHundred1,
+        EightHundred1,
+        OneThousand1
+    };
+
+    // Point value enumeration used for letting the
+    // PM class know the value to subtract or add
+    // during the second round of Jeopardy (suffix: 2)
+    enum SecondRoundPointValue
+    {
+        FourHundred2,
+        EightHundred2,
+        OneThousandTwoHundred2,
+        OneThousandSixHundred2,
+        TwoThousand2
+    };
+
     // Category enumeration used to pass control to
     // the JeopardyBoard from WheelOfFortuneBoard
     enum Category
