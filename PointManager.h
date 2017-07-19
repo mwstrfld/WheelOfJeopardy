@@ -6,11 +6,13 @@
 #include <WheelOfJeopardyTypes.h>
 
 
+// Note: This is a singleton class to only have one instance
+//       of the PointManager object within the application
 class PointManager
 {
 public:
-    PointManager();
-    ~PointManager();
+    // Function call to get the instance
+    static PointManager* instance();
 
     // Add points functions for each round
     void addPoints( Types::Player player, Types::FirstRoundPointValue points );
@@ -34,4 +36,14 @@ protected:
     qint32 m_player1Total;
     qint32 m_player2Total;
     qint32 m_player3Total;
+
+private:
+    // Hidden constructors and equals operator
+    PointManager();
+    PointManager( const PointManager& );
+    PointManager& operator=( const PointManager& );
+    ~PointManager();
+
+    // Actual instance
+    static PointManager* m_instance;
 };

@@ -1,16 +1,15 @@
 #include <PointManager.h>
 
 
-PointManager::PointManager()
-    : m_player1Total( 0 ),
-      m_player2Total( 0 ),
-      m_player3Total( 0 )
-{
-}
+PointManager* PointManager::m_instance = 0;
 
 
-PointManager::~PointManager()
+PointManager* PointManager::instance()
 {
+    if( !m_instance )
+        m_instance = new PointManager();
+
+    return m_instance;
 }
 
 
@@ -146,4 +145,27 @@ qint32 PointManager::getPlayer2Points()
 qint32 PointManager::getPlayer3Points()
 {
     return m_player3Total;
+}
+
+
+// Hidden members
+PointManager::PointManager()
+    : m_player1Total( 0 ),
+      m_player2Total( 0 ),
+      m_player3Total( 0 )
+{
+}
+
+
+PointManager::PointManager( const PointManager& )
+{
+}
+
+PointManager& PointManager::operator=( const PointManager& )
+{
+    return *this;
+}
+
+PointManager::~PointManager()
+{
 }
