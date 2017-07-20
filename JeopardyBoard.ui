@@ -109,6 +109,11 @@
       <property name="text">
        <string>Category 1</string>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="background">
        <color>
         <red>0</red>
@@ -129,6 +134,11 @@
      <column>
       <property name="text">
        <string>Category 2</string>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="background">
        <color>
@@ -151,6 +161,11 @@
       <property name="text">
        <string>Category 3</string>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="background">
        <color>
         <red>0</red>
@@ -171,6 +186,11 @@
      <column>
       <property name="text">
        <string>Category 4</string>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="background">
        <color>
@@ -193,6 +213,11 @@
       <property name="text">
        <string>Category 5</string>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="background">
        <color>
         <red>0</red>
@@ -213,6 +238,11 @@
      <column>
       <property name="text">
        <string>Category 6</string>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="background">
        <color>
@@ -238,7 +268,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -272,7 +302,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -306,7 +336,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -340,7 +370,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -374,7 +404,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -408,7 +438,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>15</pointsize>
+        <pointsize>10</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -442,7 +472,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -476,7 +506,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -510,7 +540,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -544,7 +574,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -578,7 +608,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -612,7 +642,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -646,7 +676,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -680,7 +710,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -714,7 +744,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -748,7 +778,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -782,7 +812,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -816,7 +846,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -850,7 +880,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -884,7 +914,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -918,7 +948,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -952,7 +982,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -986,7 +1016,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1020,7 +1050,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1054,7 +1084,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1088,7 +1118,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1122,7 +1152,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1156,7 +1186,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1190,7 +1220,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1224,7 +1254,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>40</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1258,7 +1288,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1292,7 +1322,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1326,7 +1356,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1360,7 +1390,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1394,7 +1424,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
@@ -1428,7 +1458,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>35</pointsize>
+        <pointsize>20</pointsize>
         <weight>75</weight>
         <bold>true</bold>
        </font>
