@@ -35,6 +35,9 @@ protected slots:
     void onPlayer2NameChange( const QString& name );
     void onPlayer3NameChange( const QString& name );
 
+    // From Category Selector Dialog
+    void onCategorySelected( Types::Category );
+
     // From Jeopardy Board
     void receivedControlBack();
 
@@ -72,6 +75,7 @@ protected:
     void loseTurn();
     void freeTurn();
     void bankrupt();
+    void selectCategory( bool playerChoice = true );
 
     // Helper for updating status label
     void updateStatusLabel();

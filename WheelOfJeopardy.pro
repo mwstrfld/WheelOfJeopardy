@@ -9,18 +9,21 @@ SOURCES  += main.cpp \
             JeopardyBoard.cpp \
             QuestionAndAnswerFacilitator.cpp \
             PointManager.cpp \
-            QuestionDialog.cpp
+            QuestionDialog.cpp \
+            CategorySelectorDialog.cpp
 
 HEADERS  += WheelOfJeopardyTypes.h \
             WheelOfFortuneBoard.h \
             JeopardyBoard.h \
             QuestionAndAnswerFacilitator.h \
             PointManager.h \
-            QuestionDialog.h
+            QuestionDialog.h \
+            CategorySelectorDialog.h
 
 FORMS    += WheelOfFortuneBoard.ui \
             JeopardyBoard.ui \
-            QuestionDialog.ui
+            QuestionDialog.ui \
+            CategorySelectorDialog.ui
 
 TARGET    = WheelOfJeopardy
 TEMPLATE  = app

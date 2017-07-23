@@ -44,7 +44,7 @@ void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category cate
                                                              questionAndAnswerPair.first );
 
         // Connect answer submission signal and slot
-        connect( questionDialog, SIGNAL( answerSubmitted( const QString& ) ), this, SLOT( onAnswerSubmitted( const QString& ) ) );
+        connect( questionDialog, SIGNAL( answerSubmitted(QString) ), this, SLOT( onAnswerSubmitted(QString) ) );
 
         // Display QuestionDialog to user
         questionDialog->show();

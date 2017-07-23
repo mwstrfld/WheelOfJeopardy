@@ -1,6 +1,7 @@
 #include <QDebug>
 #include <QMessageBox>
 
+#include <CategorySelectorDialog.h>
 #include <JeopardyBoard.h>
 #include <PointManager.h>
 #include <WheelOfFortuneBoard.h>
@@ -193,13 +194,13 @@ void WheelOfFortuneBoard::actUponNewSector()
         emit categoryChosen( m_turnState, Types::Category::Category4 );
         break;
     case Types::PlayerChoice:
-        // TODO: Pop-up for choosing category
+        selectCategory( true );
         break;
     case Types::SectorCategory5:
         emit categoryChosen( m_turnState, Types::Category::Category5 );
         break;
     case Types::OpponentChoice:
-        // TODO: Pop-up for choosing category
+        selectCategory( false );
         break;
     case Types::SectorCategory6:
         emit categoryChosen( m_turnState, Types::Category::Category6 );
@@ -286,6 +287,74 @@ void WheelOfFortuneBoard::bankrupt()
 
     // Advance
     advanceTurn();
+}
+
+
+void WheelOfFortuneBoard::selectCategory( bool playerChoice )
+{
+    // Create the text to display
+    QString str = "";
+
+    // Change based on player or opponent choice
+    if( playerChoice )
+    {
+        switch( m_turnState )
+        {
+        case Types::Player1:
+            str += m_player1Name;
+            break;
+        case Types::Player2:
+            str += m_player2Name;
+            break;
+        case Types::Player3:
+            str += m_player3Name;
+            break;
+        default:
+            break;
+        }
+
+        str += ", please choose a category for yourself.";
+    }
+    else
+    {
+        // Opponents' choice
+        QString playerStr = "";
+
+        switch( m_turnState )
+        {
+        case Types::Player1:
+            str += m_player2Name + " and " + m_player3Name;
+            playerStr = m_player1Name;
+            break;
+        case Types::Player2:
+            str += m_player1Name + " and " + m_player3Name;
+            playerStr = m_player2Name;
+            break;
+        case Types::Player3:
+            str += m_player1Name + " and " + m_player2Name;
+            playerStr = m_player3Name;
+            break;
+        default:
+            break;
+        }
+
+        str += ", please choose a category for " + playerStr + ".";
+    }
+
+    // Create new Category Selector Dialog
+    auto csd = new CategorySelectorDialog( this, str );
+
+    // Connect the selection signal/slot
+    connect( csd, SIGNAL( categorySelected(Types::Category) ), this, SLOT( onCategorySelected(Types::Category) ) );
+
+    // Show to user
+    csd->show();
+}
+
+
+void WheelOfFortuneBoard::onCategorySelected( Types::Category category )
+{
+    emit categoryChosen( m_turnState, category );
 }
 
 
