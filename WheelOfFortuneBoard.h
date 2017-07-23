@@ -23,7 +23,8 @@ public:
     ~WheelOfFortuneBoard();
 
 signals:
-    void categoryChosen( Types::Category category );
+    // To Jeopardy Board
+    void categoryChosen( Types::Player, Types::Category );
 
 protected slots:
     // Spin button handler
@@ -33,6 +34,9 @@ protected slots:
     void onPlayer1NameChange( const QString& name );
     void onPlayer2NameChange( const QString& name );
     void onPlayer3NameChange( const QString& name );
+
+    // From Jeopardy Board
+    void receivedControlBack();
 
 protected:
     // Spin counter
@@ -44,7 +48,7 @@ protected:
     // Helper for rotating wheel
     void rotateWheel();
 
-    // Original image pixmap
+    // Original wheel image pixmap
     QPixmap m_originalPixmap;
 
     // Player names
@@ -64,5 +68,14 @@ protected:
     // Advance the turn to next player
     void advanceTurn();
 
+    // Helpers for a few sectors
+    void loseTurn();
+    void freeTurn();
+    void bankrupt();
+
+    // Helper for updating status label
+    void updateStatusLabel();
+
+    // The Jeopardy Board
     JeopardyBoard* m_jeopardyBoard;
 };

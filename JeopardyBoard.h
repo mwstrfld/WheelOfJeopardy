@@ -3,6 +3,7 @@
 
 #include <QDialog>
 
+#include <QuestionAndAnswerFacilitator.h>
 #include <WheelOfJeopardyTypes.h>
 
 
@@ -21,9 +22,32 @@ public:
     JeopardyBoard( QWidget* parent = 0 );
     ~JeopardyBoard();
 
+signals:
+    // To Wheel of Fortune Board
+    void passBackControl();
+
 public slots:
-    void onCategoryChosen( Types::Category );
+    // From Wheel of Fortune Board
+    void onCategoryChosen( Types::Player, Types::Category );
+    // From Question Dialog
+    void onAnswerSubmitted( QString );
 
 protected:
+    // Actual UI
     Ui::JeopardyBoard* m_ui;
+
+    // QAF to aid in question and answer selection
+    QuestionAndAnswerFacilitator m_qaf;
+
+    // Helper function to update board display
+    void updateBoard( Types::Category category );
+
+    // Current player answering question
+    Types::Player m_currentPlayer;
+
+    // Current answer for question
+    QString m_currentAnswer;
+
+    // Current point value
+    Types::FirstRoundPointValue m_currentFirstRoundPointValue;
 };

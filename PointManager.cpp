@@ -18,13 +18,13 @@ void PointManager::addPoints( Types::Player player, Types::FirstRoundPointValue 
     switch( player )
     {
     case Types::Player1:
-        m_player1Total += (qint32)points * 200;
+        m_player1Total += (qint32)(points + 1) * 200;
         break;
     case Types::Player2:
-        m_player2Total += (qint32)points * 200;
+        m_player2Total += (qint32)(points + 1) * 200;
         break;
     case Types::Player3:
-        m_player3Total += (qint32)points * 200;
+        m_player3Total += (qint32)(points + 1) * 200;
         break;
     default:
         break;
@@ -36,13 +36,13 @@ void PointManager::addPoints( Types::Player player, Types::SecondRoundPointValue
     switch( player )
     {
     case Types::Player1:
-        m_player1Total += (qint32)points * 400;
+        m_player1Total += (qint32)(points + 1) * 400;
         break;
     case Types::Player2:
-        m_player2Total += (qint32)points * 400;
+        m_player2Total += (qint32)(points + 1) * 400;
         break;
     case Types::Player3:
-        m_player3Total += (qint32)points * 400;
+        m_player3Total += (qint32)(points + 1) * 400;
         break;
     default:
         break;
@@ -55,13 +55,13 @@ void PointManager::subtractPoints( Types::Player player, Types::FirstRoundPointV
     switch( player )
     {
     case Types::Player1:
-        m_player1Total -= (qint32)points * 200;
+        m_player1Total -= (qint32)(points + 1) * 200;
         break;
     case Types::Player2:
-        m_player2Total -= (qint32)points * 200;
+        m_player2Total -= (qint32)(points + 1) * 200;
         break;
     case Types::Player3:
-        m_player3Total -= (qint32)points * 200;
+        m_player3Total -= (qint32)(points + 1) * 200;
         break;
     default:
         break;
@@ -74,13 +74,13 @@ void PointManager::subtractPoints( Types::Player player, Types::SecondRoundPoint
     switch( player )
     {
     case Types::Player1:
-        m_player1Total -= (qint32)points * 400;
+        m_player1Total -= (qint32)(points + 1) * 400;
         break;
     case Types::Player2:
-        m_player2Total -= (qint32)points * 400;
+        m_player2Total -= (qint32)(points + 1) * 400;
         break;
     case Types::Player3:
-        m_player3Total -= (qint32)points * 400;
+        m_player3Total -= (qint32)(points + 1) * 400;
         break;
     default:
         break;

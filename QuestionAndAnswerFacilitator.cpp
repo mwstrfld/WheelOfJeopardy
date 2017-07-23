@@ -69,36 +69,33 @@ QuestionAndAnswerFacilitator::~QuestionAndAnswerFacilitator()
 
 QPair<QString, QString> QuestionAndAnswerFacilitator::getNextQuestionAndAnswer( Types::Category category )
 {
-    // TODO: Create switch-case statement on Category type (similar to
-    //       WheelOfFortuneBoard::actUponNewSector), pick the next item
-    //       in the selected category's map, and advance the current
-    //       category ID for that particular map.  Something like:
     QPair< QString, QString > retVal;
 
     switch( category )
     {
     case Types::Category1:
-        retVal = m_category1QuestionToAnswerMap.at( m_category1CurrentId++ );
+        if( m_category1CurrentId < 6 )
+            retVal = m_category1QuestionToAnswerMap.at( m_category1CurrentId++ );
         break;
-
     case Types::Category2:
-        retVal = m_category2QuestionToAnswerMap.at( m_category2CurrentId++ );
+        if( m_category2CurrentId < 6 )
+            retVal = m_category2QuestionToAnswerMap.at( m_category2CurrentId++ );
         break;
-
     case Types::Category3:
-        retVal = m_category3QuestionToAnswerMap.at( m_category3CurrentId++ );
+        if( m_category3CurrentId < 6 )
+            retVal = m_category3QuestionToAnswerMap.at( m_category3CurrentId++ );
         break;
-
     case Types::Category4:
-        retVal = m_category4QuestionToAnswerMap.at( m_category4CurrentId++ );
+        if( m_category4CurrentId < 6 )
+            retVal = m_category4QuestionToAnswerMap.at( m_category4CurrentId++ );
         break;
-
     case Types::Category5:
-        retVal = m_category5QuestionToAnswerMap.at( m_category5CurrentId++ );
+        if( m_category5CurrentId < 6 )
+            retVal = m_category5QuestionToAnswerMap.at( m_category5CurrentId++ );
         break;
-
     case Types::Category6:
-        retVal = m_category6QuestionToAnswerMap.at( m_category6CurrentId++ );
+        if( m_category6CurrentId < 6 )
+            retVal = m_category6QuestionToAnswerMap.at( m_category6CurrentId++ );
         break;
     }
 

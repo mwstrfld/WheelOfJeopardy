@@ -2,5 +2,6 @@
 <qresource prefix="/resources">
     <file>WheelOfFortuneWheel.png</file>
     <file>WheelOfFortuneTrianglePointer.png</file>
+    <file>Token.png</file>
 </qresource>
 </RCC>

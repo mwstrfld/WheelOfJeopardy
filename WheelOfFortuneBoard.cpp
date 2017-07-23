@@ -1,6 +1,8 @@
 #include <QDebug>
+#include <QMessageBox>
 
 #include <JeopardyBoard.h>
+#include <PointManager.h>
 #include <WheelOfFortuneBoard.h>
 #include <ui_WheelOfFortuneBoard.h>
 
@@ -24,6 +26,11 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     m_ui->spinCountLineEdit->setReadOnly( true );
     m_ui->spinCountLineEdit->setText( QString::number( m_spinCount ) );
 
+    // Hide the tokens
+    m_ui->player1TokenLabel->setEnabled( false );
+    m_ui->player2TokenLabel->setEnabled( false );
+    m_ui->player3TokenLabel->setEnabled( false );
+
     // Show Jeopardy Board
     m_jeopardyBoard = new JeopardyBoard( this );
     m_jeopardyBoard->show();
@@ -33,7 +40,8 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     connect( m_ui->player1NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer1NameChange(QString) ) );
     connect( m_ui->player2NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer2NameChange(QString) ) );
     connect( m_ui->player3NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer3NameChange(QString) ) );
-    connect( this, SIGNAL( categoryChosen(Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Category) ) );
+    connect( this, SIGNAL( categoryChosen(Types::Player, Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Player, Types::Category) ) );
+    connect( m_jeopardyBoard, SIGNAL( passBackControl() ), this, SLOT( receivedControlBack() ) );
 
     // Initialize the Scoreboard Player names
     auto player1Item = new QTableWidgetItem( m_player1Name );
@@ -52,6 +60,9 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
         scoreItem->setTextAlignment( Qt::AlignCenter );
         m_ui->scoreboardTableWidget->setItem( i, 1, scoreItem );
     }
+
+    // Update the status
+    updateStatusLabel();
 
     // Setup original pixmap
     m_originalPixmap = *(m_ui->wheelLabel->pixmap());
@@ -121,6 +132,9 @@ void WheelOfFortuneBoard::onPlayer1NameChange( const QString& name )
     // Update the Scoreboard
     auto item = m_ui->scoreboardTableWidget->item( 0, 0 );
     item->setText( name );
+
+    // Update the status
+    updateStatusLabel();
 }
 
 
@@ -132,6 +146,9 @@ void WheelOfFortuneBoard::onPlayer2NameChange( const QString& name )
     // Update the Scoreboard
     auto item = m_ui->scoreboardTableWidget->item( 1, 0 );
     item->setText( name );
+
+    // Update the status
+    updateStatusLabel();
 }
 
 
@@ -143,6 +160,9 @@ void WheelOfFortuneBoard::onPlayer3NameChange( const QString& name )
     // Update the Scoreboard
     auto item = m_ui->scoreboardTableWidget->item( 2, 0 );
     item->setText( name );
+
+    // Update the status
+    updateStatusLabel();
 }
 
 
@@ -152,65 +172,188 @@ void WheelOfFortuneBoard::actUponNewSector()
     switch( m_currentSector )
     {
     case Types::SectorCategory1:
-        emit categoryChosen( Types::Category::Category1 );
+        emit categoryChosen( m_turnState, Types::Category::Category1 );
         break;
     case Types::LoseTurn:
+        loseTurn();
         break;
     case Types::SectorCategory2:
-        emit categoryChosen( Types::Category::Category2 );
+        emit categoryChosen( m_turnState, Types::Category::Category2 );
         break;
     case Types::FreeTurn:
+        freeTurn();
         break;
     case Types::SectorCategory3:
-        emit categoryChosen( Types::Category::Category3 );
+        emit categoryChosen( m_turnState, Types::Category::Category3 );
         break;
     case Types::Bankrupt:
+        bankrupt();
         break;
     case Types::SectorCategory4:
-        emit categoryChosen( Types::Category::Category4 );
+        emit categoryChosen( m_turnState, Types::Category::Category4 );
         break;
     case Types::PlayerChoice:
+        // TODO: Pop-up for choosing category
         break;
     case Types::SectorCategory5:
-        emit categoryChosen( Types::Category::Category5 );
+        emit categoryChosen( m_turnState, Types::Category::Category5 );
         break;
     case Types::OpponentChoice:
+        // TODO: Pop-up for choosing category
         break;
     case Types::SectorCategory6:
-        emit categoryChosen( Types::Category::Category6 );
+        emit categoryChosen( m_turnState, Types::Category::Category6 );
         break;
     case Types::SpinAgain:
-        break;
     default:
         break;
     }
 }
 
 
-void WheelOfFortuneBoard::advanceTurn()
+void WheelOfFortuneBoard::loseTurn()
 {
-    QString str = "";
+    // Which player's token label?
+    QLabel* tokenLabel = 0;
+    QString outputStr = "";
 
-    // Set to next player
     switch( m_turnState )
     {
     case Types::Player1:
-        m_turnState = Types::Player2;
-        str=  m_player2Name;
+        outputStr = m_player1Name;
+        tokenLabel = m_ui->player1TokenLabel;
         break;
     case Types::Player2:
-        m_turnState = Types::Player3;
-        str = m_player3Name;
+        outputStr = m_player2Name;
+        tokenLabel = m_ui->player2TokenLabel;
         break;
     case Types::Player3:
-        m_turnState = Types::Player1;
-        str = m_player1Name;
+        outputStr = m_player3Name;
+        tokenLabel = m_ui->player3TokenLabel;
+        break;
+    }
+
+    // If they have a token, do they want to use it?
+    if( tokenLabel && tokenLabel->isEnabled() )
+    {
+        outputStr += ", would you like to use your free turn?";
+        int ret = QMessageBox::question( this,
+                                         tr( "Use Free Turn?" ),
+                                         outputStr,
+                                         QMessageBox::Yes | QMessageBox::No );
+        if( ret == QMessageBox::Yes )
+            tokenLabel->setEnabled( false );
+        else
+            advanceTurn();
+    }
+    else
+        advanceTurn();
+}
+
+
+void WheelOfFortuneBoard::freeTurn()
+{
+    switch( m_turnState )
+    {
+    case Types::Player1:
+        m_ui->player1TokenLabel->setEnabled( true );
+        break;
+    case Types::Player2:
+        m_ui->player2TokenLabel->setEnabled( true );
+        break;
+    case Types::Player3:
+        m_ui->player3TokenLabel->setEnabled( true );
         break;
     default:
         break;
     }
 
-    // Update status label
+    advanceTurn();
+}
+
+
+void WheelOfFortuneBoard::bankrupt()
+{
+    // Get the point manager
+    auto pm = PointManager::instance();
+
+    // Call bankrupt
+    pm->bankrupt( m_turnState );
+
+    // Update score
+    auto scoreItem = m_ui->scoreboardTableWidget->item( (int)m_turnState, 1 );
+    scoreItem->setText( QString::number( pm->getPlayerPoints( m_turnState ) ) );
+
+    // Advance
+    advanceTurn();
+}
+
+
+void WheelOfFortuneBoard::advanceTurn()
+{
+    // Set to next player
+    switch( m_turnState )
+    {
+    case Types::Player1:
+        m_turnState = Types::Player2;
+        break;
+    case Types::Player2:
+        m_turnState = Types::Player3;
+        break;
+    case Types::Player3:
+        m_turnState = Types::Player1;
+        break;
+    default:
+        break;
+    }
+
+    // Update the label
+    updateStatusLabel();
+}
+
+
+void WheelOfFortuneBoard::updateStatusLabel()
+{
+    QString str = "";
+
+    // Get player's name
+    switch( m_turnState )
+    {
+    case Types::Player1:
+        str=  m_player1Name;
+        break;
+    case Types::Player2:
+        str = m_player2Name;
+        break;
+    case Types::Player3:
+        str = m_player3Name;
+        break;
+    default:
+        break;
+    }
+
+    // Actually update status label
     str.append( "'s Turn" );
     m_ui->statusLabel->setText( str );
+}
+
+
+void WheelOfFortuneBoard::receivedControlBack()
+{
+    // Get the Point Manager
+    PointManager* pm = PointManager::instance();
+
+    // Reset the Scoreboard scores
+    // Player 1
+    auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 1 );
+    scoreItem->setText( QString::number( pm->getPlayer1Points() ) );
+    // Player 2
+    scoreItem = m_ui->scoreboardTableWidget->item( 1, 1 );
+    scoreItem->setText( QString::number( pm->getPlayer2Points() ) );
+    // Player 3
+    scoreItem = m_ui->scoreboardTableWidget->item( 2, 1 );
+    scoreItem->setText( QString::number( pm->getPlayer3Points() ) );
+
+    // Advance the turn
+    advanceTurn();
 }
