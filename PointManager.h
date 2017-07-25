@@ -31,6 +31,9 @@ public:
     qint32 getPlayer2Points();
     qint32 getPlayer3Points();
 
+    // Getter for the current leader
+    Types::Player getCurrentWinner();
+
 protected:
     // Players point totals
     qint32 m_player1Total;

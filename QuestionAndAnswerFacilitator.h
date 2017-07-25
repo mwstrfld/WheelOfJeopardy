@@ -15,6 +15,9 @@ public:
 
     QPair<QString, QString> getNextQuestionAndAnswer( Types::Category category );
 
+    void reset();
+    void resetForSecondRound();
+
 protected:
     // Do for each category
     quint8 m_category1CurrentId;

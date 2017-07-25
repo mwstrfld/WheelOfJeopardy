@@ -24,6 +24,7 @@ public:
 
 signals:
     // To Jeopardy Board
+    void roundSwitch();
     void categoryChosen( Types::Player, Types::Category );
 
 protected slots:
@@ -79,6 +80,9 @@ protected:
 
     // Helper for updating status label
     void updateStatusLabel();
+
+    // Round indicator
+    bool m_firstRound;
 
     // The Jeopardy Board
     JeopardyBoard* m_jeopardyBoard;

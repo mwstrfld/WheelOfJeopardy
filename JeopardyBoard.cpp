@@ -8,8 +8,11 @@
 JeopardyBoard::JeopardyBoard( QWidget* parent )
     : QDialog( parent ),
       m_ui( new Ui::JeopardyBoard ),
+      m_firstRound( true ),
       m_qaf(),
-      m_currentAnswer( "" )
+      m_currentAnswer( "" ),
+      m_currentFirstRoundPointValue( Types::TwoHundred1 ),
+      m_currentSecondRoundPointValue( Types::FourHundred2 )
 {
     // Parent the actual UI
     m_ui->setupUi( this );
@@ -21,6 +24,12 @@ JeopardyBoard::~JeopardyBoard()
     delete m_ui;
 }
 
+
+void JeopardyBoard::onRoundSwitch()
+{
+    m_firstRound = false;
+    resetForSecondRound();
+}
 
 void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category category )
 {
@@ -73,7 +82,10 @@ void JeopardyBoard::updateBoard( Types::Category category )
             item->setText( "" );
 
             // Get the point value accounting for "header" row again
-            m_currentFirstRoundPointValue = (Types::FirstRoundPointValue)(i - 1);
+            if( m_firstRound )
+                m_currentFirstRoundPointValue = (Types::FirstRoundPointValue)(i - 1);
+            else
+                m_currentSecondRoundPointValue = (Types::SecondRoundPointValue)(i - 1);
 
             break;
         }
@@ -90,11 +102,42 @@ void JeopardyBoard::onAnswerSubmitted( QString answer )
     PointManager* pm = PointManager::instance();
 
     // Add or subtract points accordingly
-    if( correct )
-        pm->addPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+    if( m_firstRound )
+    {
+        if( correct )
+            pm->addPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+        else
+            pm->subtractPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+    }
     else
-        pm->subtractPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+    {
+        if( correct )
+            pm->addPoints( m_currentPlayer, m_currentSecondRoundPointValue );
+        else
+            pm->subtractPoints( m_currentPlayer, m_currentSecondRoundPointValue );
+    }
 
     // Pass back control
     emit passBackControl();
+}
+
+
+void JeopardyBoard::resetForSecondRound()
+{
+    // Initialize second round multiplier
+    quint32 mult = 400;
+
+    // Reset to second round scoring
+    for( int j = 0; j < m_ui->jeopardyBoardTableWidget->columnCount(); ++j )
+    {
+        // Skip "header" rows
+        for( int i = 1; i < m_ui->jeopardyBoardTableWidget->rowCount(); ++i )
+        {
+            auto item = m_ui->jeopardyBoardTableWidget->item( i, j );
+            if( item )
+            {
+                item->setText( QString::number( mult * i ) );
+            }
+        }
+    }
 }

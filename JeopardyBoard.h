@@ -28,6 +28,7 @@ signals:
 
 public slots:
     // From Wheel of Fortune Board
+    void onRoundSwitch();
     void onCategoryChosen( Types::Player, Types::Category );
     // From Question Dialog
     void onAnswerSubmitted( QString );
@@ -35,6 +36,12 @@ public slots:
 protected:
     // Actual UI
     Ui::JeopardyBoard* m_ui;
+
+    // Round indicator
+    bool m_firstRound;
+
+    // Reset after round switch
+    void resetForSecondRound();
 
     // QAF to aid in question and answer selection
     QuestionAndAnswerFacilitator m_qaf;
@@ -48,6 +55,7 @@ protected:
     // Current answer for question
     QString m_currentAnswer;
 
-    // Current point value
+    // Current point values
     Types::FirstRoundPointValue m_currentFirstRoundPointValue;
+    Types::SecondRoundPointValue m_currentSecondRoundPointValue;
 };

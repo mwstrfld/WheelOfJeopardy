@@ -18,6 +18,7 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
       m_player3Name( "Player 3" ),
       m_turnState( Types::Player1 ),
       m_currentSector( Types::SectorCategory1 ),
+      m_firstRound( true ),
       m_jeopardyBoard( 0 )
 {
     // Parent the actual UI
@@ -41,6 +42,7 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     connect( m_ui->player1NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer1NameChange(QString) ) );
     connect( m_ui->player2NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer2NameChange(QString) ) );
     connect( m_ui->player3NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer3NameChange(QString) ) );
+    connect( this, SIGNAL( roundSwitch() ), m_jeopardyBoard, SLOT( onRoundSwitch() ) );
     connect( this, SIGNAL( categoryChosen(Types::Player, Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Player, Types::Category) ) );
     connect( m_jeopardyBoard, SIGNAL( passBackControl() ), this, SLOT( receivedControlBack() ) );
 
@@ -106,10 +108,54 @@ void WheelOfFortuneBoard::rotateWheel()
 
 void WheelOfFortuneBoard::onSpinButtonPressed()
 {
-    // TODO: Apply end of game criteria when it hits zero and switch
-    //       to Double Jeopardy at 25?  For now, reset once it hits 0.
     if( m_spinCount == 0 )
-        m_spinCount = 50;
+    {
+        if( m_firstRound )
+        {
+            // Reset spin count
+            m_spinCount = 50;
+            m_firstRound = false;
+
+            // Let Jeopardy Board know round changed
+            emit roundSwitch();
+        }
+        else
+        {
+            // End of game
+            QString str = "Congratulations! ";
+
+            // Find out winner
+            Types::Player winner = PointManager::instance()->getCurrentWinner();
+
+            // Add their name
+            switch( winner )
+            {
+            case Types::Player1:
+                str += m_player1Name;
+                break;
+            case Types::Player2:
+                str += m_player2Name;
+                break;
+            case Types::Player3:
+                str += m_player3Name;
+                break;
+            default:
+                break;
+            }
+
+            // Finish string
+            str += " is the winner!";
+
+            // Display to players
+            QMessageBox::question( this,
+                                   tr( "The winner is..." ),
+                                   str,
+                                   QMessageBox::Ok );
+
+            // Close game
+            close();
+        }
+    }
 
     // Get a random sector number between 0 and 11
     m_currentSector = (Types::Sector)(qrand() % 11);

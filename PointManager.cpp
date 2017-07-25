@@ -157,6 +157,30 @@ PointManager::PointManager()
 }
 
 
+// Getter for the current leader
+Types::Player PointManager::getCurrentWinner()
+{
+    // Assume Player 1 is winning now
+    qint32 max = m_player1Total;
+    Types::Player retVal = Types::Player1;
+
+    if( m_player2Total > max )
+    {
+        // Player 2 has highest now
+        max = m_player2Total;
+        retVal = Types::Player2;
+    }
+
+    if( m_player3Total > max )
+    {
+        // Player 3 has highest point total
+        retVal = Types::Player3;
+    }
+
+    return retVal;
+}
+
+
 PointManager::PointManager( const PointManager& )
 {
 }
