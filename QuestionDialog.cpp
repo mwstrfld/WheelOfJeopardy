@@ -19,6 +19,9 @@ QuestionDialog::QuestionDialog( QWidget* parent,
     // Set the question
     m_ui->questionTextBrowser->setText( question );
 
+    // Set the default clock color to black
+    m_ui->clockDisplay->setPalette( Qt::black );
+
     // Connect submit button signal/slot
     connect( m_ui->submitButton, SIGNAL( pressed() ), SLOT( onSubmitButtonPressed() ) );
 
@@ -30,7 +33,7 @@ QuestionDialog::QuestionDialog( QWidget* parent,
     timer->start( 1000 );
 
     // Initialize the countdown to one minute
-    m_countdown = QTime::fromString( "1:00", "m:ss" );
+    m_countdown = QTime::fromString( "0:30", "m:ss" );
 
     // Call for first time
     updateCountdown();
@@ -46,7 +49,15 @@ QuestionDialog::~QuestionDialog()
 void QuestionDialog::updateCountdown()
 {
     // Subtract a second
-    m_countdown.addSecs( -1 );
+    m_countdown.setHMS( 0, 0, m_countdown.addSecs( -1 ).second() );
+
+    // Close dialog if at 0
+    if( m_countdown.second() < 1 )
+        close();
+
+    // Paint numbers red, if 10 seconds or less
+    if( m_countdown.second() < 11 )
+        m_ui->clockDisplay->setPalette( Qt::red );
 
     // Get the time as text
     QString timeStr = m_countdown.toString( "m:ss" );
