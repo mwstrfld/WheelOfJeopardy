@@ -37,6 +37,9 @@ protected:
     // Actual UI
     Ui::JeopardyBoard* m_ui;
 
+    // Update category headers
+    void updateCategories();
+
     // Round indicator
     bool m_firstRound;
 

@@ -108,12 +108,12 @@ void WheelOfFortuneBoard::rotateWheel()
 
 void WheelOfFortuneBoard::onSpinButtonPressed()
 {
-    if( m_spinCount == 0 )
+    if( m_spinCount == 1 )
     {
         if( m_firstRound )
         {
             // Reset spin count
-            m_spinCount = 50;
+            m_spinCount = 51;
             m_firstRound = false;
 
             // Let Jeopardy Board know round changed
@@ -260,8 +260,9 @@ void WheelOfFortuneBoard::actUponNewSector()
 
 void WheelOfFortuneBoard::loseTurn()
 {
-    // Which player's token label?
+    // Which player's token label and count?
     QLabel* tokenLabel = 0;
+    QLineEdit* tokenCountLineEdit = 0;
     QString outputStr = "";
 
     switch( m_turnState )
@@ -269,27 +270,46 @@ void WheelOfFortuneBoard::loseTurn()
     case Types::Player1:
         outputStr = m_player1Name;
         tokenLabel = m_ui->player1TokenLabel;
+        tokenCountLineEdit = m_ui->player1TokenCountLineEdit;
         break;
     case Types::Player2:
         outputStr = m_player2Name;
         tokenLabel = m_ui->player2TokenLabel;
+        tokenCountLineEdit = m_ui->player2TokenCountLineEdit;
         break;
     case Types::Player3:
         outputStr = m_player3Name;
         tokenLabel = m_ui->player3TokenLabel;
+        tokenCountLineEdit = m_ui->player3TokenCountLineEdit;
+        break;
+    default:
         break;
     }
 
     // If they have a token, do they want to use it?
     if( tokenLabel && tokenLabel->isEnabled() )
     {
-        outputStr += ", would you like to use your free turn?";
+        outputStr += ", would you like to use a free turn?";
         int ret = QMessageBox::question( this,
                                          tr( "Use Free Turn?" ),
                                          outputStr,
                                          QMessageBox::Yes | QMessageBox::No );
         if( ret == QMessageBox::Yes )
-            tokenLabel->setEnabled( false );
+        {
+            if( tokenCountLineEdit )
+            {
+                // Get the current count
+                qint8 tokenCount = tokenCountLineEdit->text().toInt();
+                if( tokenCount > 0 )
+                {
+                    // Subtract a token count and disable if all out
+                    if( tokenCount == (qint8)1 )
+                        tokenLabel->setEnabled( false );
+
+                    tokenCountLineEdit->setText( QString::number( --tokenCount ) );
+                }
+            }
+        }
         else
             advanceTurn();
     }
@@ -300,15 +320,23 @@ void WheelOfFortuneBoard::loseTurn()
 
 void WheelOfFortuneBoard::freeTurn()
 {
+    int count = 0;
+
     switch( m_turnState )
     {
     case Types::Player1:
+        count = m_ui->player1TokenCountLineEdit->text().toInt();
+        m_ui->player1TokenCountLineEdit->setText( QString::number( ++count ) );
         m_ui->player1TokenLabel->setEnabled( true );
         break;
     case Types::Player2:
+        count = m_ui->player2TokenCountLineEdit->text().toInt();
+        m_ui->player2TokenCountLineEdit->setText( QString::number( ++count ) );
         m_ui->player2TokenLabel->setEnabled( true );
         break;
     case Types::Player3:
+        count = m_ui->player3TokenCountLineEdit->text().toInt();
+        m_ui->player3TokenCountLineEdit->setText( QString::number( ++count ) );
         m_ui->player3TokenLabel->setEnabled( true );
         break;
     default:

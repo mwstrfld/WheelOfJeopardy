@@ -16,6 +16,9 @@ JeopardyBoard::JeopardyBoard( QWidget* parent )
 {
     // Parent the actual UI
     m_ui->setupUi( this );
+
+    // Update the category headers
+    updateCategories();
 }
 
 
@@ -27,8 +30,17 @@ JeopardyBoard::~JeopardyBoard()
 
 void JeopardyBoard::onRoundSwitch()
 {
+    // Set to second round
     m_firstRound = false;
+
+    // Reset the board
     resetForSecondRound();
+
+    // Reset questions and answers
+    m_qaf.resetForSecondRound();
+
+    // Reset categories
+    updateCategories();
 }
 
 void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category category )
@@ -119,6 +131,21 @@ void JeopardyBoard::onAnswerSubmitted( QString answer )
 
     // Pass back control
     emit passBackControl();
+}
+
+
+void JeopardyBoard::updateCategories()
+{
+    // Initialize string for categories
+    QString catStr = "";
+
+    for( int j = 0; j < m_ui->jeopardyBoardTableWidget->columnCount(); ++j )
+    {
+        catStr = "Category " + QString::number( j+1 ) + ":\n";
+        catStr += m_qaf.getCategories().at( j );
+        auto item = m_ui->jeopardyBoardTableWidget->item( 0, j );
+        item->setText( catStr );
+    }
 }
 
 

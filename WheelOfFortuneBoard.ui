@@ -262,13 +262,13 @@
          <widget class="QLineEdit" name="player1NameLineEdit">
           <property name="minimumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
@@ -276,7 +276,7 @@
            <string>Player 1</string>
           </property>
           <property name="maxLength">
-           <number>20</number>
+           <number>15</number>
           </property>
          </widget>
         </item>
@@ -311,6 +311,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLineEdit" name="player1TokenCountLineEdit">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -326,13 +333,13 @@
          <widget class="QLineEdit" name="player2NameLineEdit">
           <property name="minimumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
@@ -340,7 +347,7 @@
            <string>Player 2</string>
           </property>
           <property name="maxLength">
-           <number>20</number>
+           <number>15</number>
           </property>
          </widget>
         </item>
@@ -375,6 +382,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLineEdit" name="player2TokenCountLineEdit">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -390,13 +404,13 @@
          <widget class="QLineEdit" name="player3NameLineEdit">
           <property name="minimumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>169</width>
+            <width>148</width>
             <height>29</height>
            </size>
           </property>
@@ -404,7 +418,7 @@
            <string>Player 3</string>
           </property>
           <property name="maxLength">
-           <number>20</number>
+           <number>15</number>
           </property>
          </widget>
         </item>
@@ -436,6 +450,13 @@
           </property>
           <property name="scaledContents">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="player3TokenCountLineEdit">
+          <property name="text">
+           <string>0</string>
           </property>
          </widget>
         </item>
