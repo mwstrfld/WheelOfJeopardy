@@ -12,7 +12,9 @@ QuestionAndAnswerFacilitator::QuestionAndAnswerFacilitator()
       m_category4CurrentId( 0 ),
       m_category4QuestionToAnswerMap(),
       m_category5CurrentId( 0 ),
-      m_category5QuestionToAnswerMap()
+      m_category5QuestionToAnswerMap(),
+      m_category6CurrentId( 0 ),
+      m_category6QuestionToAnswerMap()
 {
     // Category 1: American Presidents
     m_categories << "American\nPresidents";
