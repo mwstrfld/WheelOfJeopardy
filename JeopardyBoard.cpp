@@ -65,7 +65,7 @@ void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category cate
                                                              questionAndAnswerPair.first );
 
         // Connect answer submission signal and slot
-        connect( questionDialog, SIGNAL( answerSubmitted(QString) ), this, SLOT( onAnswerSubmitted(QString) ) );
+        connect( questionDialog, SIGNAL( answerSubmitted(QString, bool) ), this, SLOT( onAnswerSubmitted(QString, bool) ) );
 
         // Display QuestionDialog to user
         questionDialog->show();
@@ -105,28 +105,31 @@ void JeopardyBoard::updateBoard( Types::Category category )
 }
 
 
-void JeopardyBoard::onAnswerSubmitted( QString answer )
+void JeopardyBoard::onAnswerSubmitted( QString answer, bool timedOut )
 {
-    // Figure out if correct
-    bool correct = !(bool)m_currentAnswer.compare( answer, Qt::CaseInsensitive );
-
-    // Get the Point Manager
-    PointManager* pm = PointManager::instance();
-
-    // Add or subtract points accordingly
-    if( m_firstRound )
+    if(!timedOut)
     {
-        if( correct )
-            pm->addPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+        // Figure out if correct
+        bool correct = !(bool)m_currentAnswer.compare( answer, Qt::CaseInsensitive );
+
+        // Get the Point Manager
+        PointManager* pm = PointManager::instance();
+
+        // Add or subtract points accordingly
+        if( m_firstRound )
+        {
+            if( correct )
+                pm->addPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+            else
+                pm->subtractPoints( m_currentPlayer, m_currentFirstRoundPointValue );
+        }
         else
-            pm->subtractPoints( m_currentPlayer, m_currentFirstRoundPointValue );
-    }
-    else
-    {
-        if( correct )
-            pm->addPoints( m_currentPlayer, m_currentSecondRoundPointValue );
-        else
-            pm->subtractPoints( m_currentPlayer, m_currentSecondRoundPointValue );
+        {
+            if( correct )
+                pm->addPoints( m_currentPlayer, m_currentSecondRoundPointValue );
+            else
+                pm->subtractPoints( m_currentPlayer, m_currentSecondRoundPointValue );
+        }
     }
 
     // Pass back control

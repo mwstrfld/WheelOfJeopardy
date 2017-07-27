@@ -80,8 +80,10 @@ void QuestionDialog::onSubmitButtonPressed()
 
 void QuestionDialog::done( int r )
 {
+    bool timedOut = m_countdown.second() < 1;
+
     // Let Jeopardy Board know the submitted answer
-    emit answerSubmitted( m_ui->answerLineEdit->text() );
+    emit answerSubmitted( m_ui->answerLineEdit->text(), timedOut );
 
     // Call base class
     QDialog::done( r );

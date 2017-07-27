@@ -31,7 +31,7 @@ public slots:
     void onRoundSwitch();
     void onCategoryChosen( Types::Player, Types::Category );
     // From Question Dialog
-    void onAnswerSubmitted( QString );
+    void onAnswerSubmitted( QString, bool );
 
 protected:
     // Actual UI

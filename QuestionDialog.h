@@ -22,7 +22,7 @@ public:
     ~QuestionDialog();
 
 signals:
-    void answerSubmitted( QString );
+    void answerSubmitted( QString, bool );
 
 protected slots:
     void updateCountdown();
