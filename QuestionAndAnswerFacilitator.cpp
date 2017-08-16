@@ -140,7 +140,7 @@ void QuestionAndAnswerFacilitator::resetForSecondRound()
     reset();
 
     // Category 1: Automobile Manufacturers
-    m_categories << "Automobile Manufacturers";
+    m_categories << "Automobile\nManufacturers";
     m_category1QuestionToAnswerMap.push_back( QPair<QString, QString>( "Which car company's logo has four silver rings?", "Audi" ) );
     m_category1QuestionToAnswerMap.push_back( QPair<QString, QString>( "Which car company has the slogan: 'Zoom, zoom'?", "Mazda" ) );
     m_category1QuestionToAnswerMap.push_back( QPair<QString, QString>( "Which young American car company makes only electric vehicles?", "Tesla" ) );
@@ -148,7 +148,7 @@ void QuestionAndAnswerFacilitator::resetForSecondRound()
     m_category1QuestionToAnswerMap.push_back( QPair<QString, QString>( "The Carrera is a model produced by which automobile manufacturer?", "Porsche" ) );
 
     // Category 2: Famous Quotes
-    m_categories << "Famouts Quotes";
+    m_categories << "Famouts\nQuotes";
     m_category2QuestionToAnswerMap.push_back( QPair<QString, QString>( "Who said this: \"I have a dream that my four children will one day live in a nation where they will not be judged by the color of their skin, but by the content of their character.\"", "Martin Luther King Jr." ) );
     m_category2QuestionToAnswerMap.push_back( QPair<QString, QString>( "Who said this: \"Mr. Gorbachev, tear down this wall!\"", "Ronald Reagan" ) );
     m_category2QuestionToAnswerMap.push_back( QPair<QString, QString>( "Who said this: \"I came. I saw. I conquered.\"", "Julius Caesar" ) );
@@ -156,7 +156,7 @@ void QuestionAndAnswerFacilitator::resetForSecondRound()
     m_category2QuestionToAnswerMap.push_back( QPair<QString, QString>( "Who said this: \"Anyone who has never made a mistake has never tried anything new.\"", "Albert Einstein" ) );
 
     // Category 3: College Sports
-    m_categories << "College Sports";
+    m_categories << "College\nSports";
     m_category3QuestionToAnswerMap.push_back( QPair<QString, QString>( "What men’s NCAA championship did University of Maryland, College Park win in 2017?", "Lacrosse" ) );
     m_category3QuestionToAnswerMap.push_back( QPair<QString, QString>( "What is the full name of the university that won March Madness in 2015?", "Duke University" ) );
     m_category3QuestionToAnswerMap.push_back( QPair<QString, QString>( "What is University of Indiana’s mascot?", "Hoosier" ) );

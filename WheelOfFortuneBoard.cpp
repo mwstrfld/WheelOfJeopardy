@@ -153,6 +153,7 @@ void WheelOfFortuneBoard::onSpinButtonPressed()
                                    QMessageBox::Ok );
 
             // Close game
+            m_jeopardyBoard->close();
             close();
         }
     }
