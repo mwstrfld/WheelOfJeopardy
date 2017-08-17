@@ -44,7 +44,7 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     connect( m_ui->player3NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer3NameChange(QString) ) );
     connect( this, SIGNAL( roundSwitch() ), m_jeopardyBoard, SLOT( onRoundSwitch() ) );
     connect( this, SIGNAL( categoryChosen(Types::Player, Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Player, Types::Category) ) );
-    connect( m_jeopardyBoard, SIGNAL( passBackControl() ), this, SLOT( receivedControlBack() ) );
+    connect( m_jeopardyBoard, SIGNAL( passBackControl(bool) ), this, SLOT( receivedControlBack(bool) ) );
 
     // Initialize the Scoreboard Player names
     auto player1Item = new QTableWidgetItem( m_player1Name );
@@ -493,7 +493,7 @@ void WheelOfFortuneBoard::updateStatusLabel()
 }
 
 
-void WheelOfFortuneBoard::receivedControlBack()
+void WheelOfFortuneBoard::receivedControlBack( bool canUseToken )
 {
     // Get the Point Manager
     PointManager* pm = PointManager::instance();
@@ -524,6 +524,10 @@ void WheelOfFortuneBoard::receivedControlBack()
         scoreItem->setText( QString::number( pm->getPlayer3Round2Points() ) );
     }
 
-    // Advance the turn
-    advanceTurn();
+    // Taking advantage of lose turn logic if they
+    // can use a token, if not, advance the turn
+    if( canUseToken )
+        loseTurn();
+    else
+        advanceTurn();
 }

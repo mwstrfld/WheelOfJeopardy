@@ -32,15 +32,15 @@ protected slots:
     void onSpinButtonPressed();
 
     // Name change handlers
-    void onPlayer1NameChange( const QString& name );
-    void onPlayer2NameChange( const QString& name );
-    void onPlayer3NameChange( const QString& name );
+    void onPlayer1NameChange( const QString& );
+    void onPlayer2NameChange( const QString& );
+    void onPlayer3NameChange( const QString& );
 
     // From Category Selector Dialog
     void onCategorySelected( Types::Category );
 
     // From Jeopardy Board
-    void receivedControlBack();
+    void receivedControlBack( bool );
 
 protected:
     // Spin counter

@@ -24,7 +24,7 @@ public:
 
 signals:
     // To Wheel of Fortune Board
-    void passBackControl();
+    void passBackControl( bool canUseToken );
 
 public slots:
     // From Wheel of Fortune Board

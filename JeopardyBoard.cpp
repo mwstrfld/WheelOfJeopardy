@@ -76,7 +76,7 @@ void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category cate
     else
     {
         // Just give control back for now?
-        emit passBackControl();
+        emit passBackControl( false );
     }
 }
 
@@ -110,10 +110,13 @@ void JeopardyBoard::updateBoard( Types::Category category )
 
 void JeopardyBoard::onAnswerSubmitted( QString answer, bool timedOut )
 {
+    // Initialize correct variable
+    bool correct = false;
+
     if(!timedOut)
     {
         // Figure out if correct
-        bool correct = !(bool)m_currentAnswer.compare( answer, Qt::CaseInsensitive );
+        correct = !(bool)m_currentAnswer.compare( answer, Qt::CaseInsensitive );
 
         // Get the Point Manager
         PointManager* pm = PointManager::instance();
@@ -135,8 +138,9 @@ void JeopardyBoard::onAnswerSubmitted( QString answer, bool timedOut )
         }
     }
 
-    // Pass back control
-    emit passBackControl();
+    // Pass back control, can use token
+    // if not correct or timed out
+    emit passBackControl( timedOut || !correct );
 }
 
 
