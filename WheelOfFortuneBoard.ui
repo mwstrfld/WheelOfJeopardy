@@ -535,13 +535,13 @@
            <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>132</number>
+           <number>87</number>
           </attribute>
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
           <attribute name="verticalHeaderDefaultSectionSize">
-           <number>34</number>
+           <number>29</number>
           </attribute>
           <row/>
           <row/>
@@ -553,7 +553,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Score</string>
+            <string>Round 1</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Round 2</string>
            </property>
           </column>
           <item row="0" column="1">

@@ -33,6 +33,9 @@ void JeopardyBoard::onRoundSwitch()
     // Set to second round
     m_firstRound = false;
 
+    // Let the PointManager know
+    PointManager::instance()->switchRounds();
+
     // Reset the board
     resetForSecondRound();
 

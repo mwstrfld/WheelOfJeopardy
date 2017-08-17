@@ -116,6 +116,9 @@ QPair<QString, QString> QuestionAndAnswerFacilitator::getNextQuestionAndAnswer( 
 
 void QuestionAndAnswerFacilitator::reset()
 {
+    // Clear categories
+    m_categories.clear();
+
     // Reset indices
     m_category1CurrentId = 0;
     m_category2CurrentId = 0;

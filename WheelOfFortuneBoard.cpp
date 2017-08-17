@@ -59,9 +59,12 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     // Initialize the Scoreboard scores
     for( int i = 0; i < m_ui->scoreboardTableWidget->rowCount(); ++i )
     {
-        auto scoreItem = new QTableWidgetItem( "0" );
-        scoreItem->setTextAlignment( Qt::AlignCenter );
-        m_ui->scoreboardTableWidget->setItem( i, 1, scoreItem );
+        auto scoreItem1 = new QTableWidgetItem( "0" );
+        auto scoreItem2 = new QTableWidgetItem( "0" );
+        scoreItem1->setTextAlignment( Qt::AlignCenter );
+        scoreItem2->setTextAlignment( Qt::AlignCenter );
+        m_ui->scoreboardTableWidget->setItem( i, 1, scoreItem1 );
+        m_ui->scoreboardTableWidget->setItem( i, 2, scoreItem2 );
     }
 
     // Update the status
@@ -357,8 +360,16 @@ void WheelOfFortuneBoard::bankrupt()
     pm->bankrupt( m_turnState );
 
     // Update score
-    auto scoreItem = m_ui->scoreboardTableWidget->item( (int)m_turnState, 1 );
-    scoreItem->setText( QString::number( pm->getPlayerPoints( m_turnState ) ) );
+    if( m_firstRound )
+    {
+        auto scoreItem = m_ui->scoreboardTableWidget->item( (int)m_turnState, 1 );
+        scoreItem->setText( QString::number( pm->getPlayerRound1Points( m_turnState ) ) );
+    }
+    else
+    {
+        auto scoreItem = m_ui->scoreboardTableWidget->item( (int)m_turnState, 2 );
+        scoreItem->setText( QString::number( pm->getPlayerRound2Points( m_turnState ) ) );
+    }
 
     // Advance
     advanceTurn();
@@ -487,16 +498,31 @@ void WheelOfFortuneBoard::receivedControlBack()
     // Get the Point Manager
     PointManager* pm = PointManager::instance();
 
-    // Reset the Scoreboard scores
-    // Player 1
-    auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 1 );
-    scoreItem->setText( QString::number( pm->getPlayer1Points() ) );
-    // Player 2
-    scoreItem = m_ui->scoreboardTableWidget->item( 1, 1 );
-    scoreItem->setText( QString::number( pm->getPlayer2Points() ) );
-    // Player 3
-    scoreItem = m_ui->scoreboardTableWidget->item( 2, 1 );
-    scoreItem->setText( QString::number( pm->getPlayer3Points() ) );
+    // Reset the Scoreboard scores based on round
+    if( m_firstRound )
+    {
+        // Player 1
+        auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 1 );
+        scoreItem->setText( QString::number( pm->getPlayer1Round1Points() ) );
+        // Player 2
+        scoreItem = m_ui->scoreboardTableWidget->item( 1, 1 );
+        scoreItem->setText( QString::number( pm->getPlayer2Round1Points() ) );
+        // Player 3
+        scoreItem = m_ui->scoreboardTableWidget->item( 2, 1 );
+        scoreItem->setText( QString::number( pm->getPlayer3Round1Points() ) );
+    }
+    else
+    {
+        // Player 1
+        auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 2 );
+        scoreItem->setText( QString::number( pm->getPlayer1Round2Points() ) );
+        // Player 2
+        scoreItem = m_ui->scoreboardTableWidget->item( 1, 2 );
+        scoreItem->setText( QString::number( pm->getPlayer2Round2Points() ) );
+        // Player 3
+        scoreItem = m_ui->scoreboardTableWidget->item( 2, 2 );
+        scoreItem->setText( QString::number( pm->getPlayer3Round2Points() ) );
+    }
 
     // Advance the turn
     advanceTurn();

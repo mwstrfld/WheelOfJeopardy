@@ -25,20 +25,38 @@ public:
     // Bankrupt a player
     void bankrupt( Types::Player player );
 
+    // Switch rounds
+    void switchRounds();
+
     // Getters for the point totals
-    qint32 getPlayerPoints( Types::Player player );
-    qint32 getPlayer1Points();
-    qint32 getPlayer2Points();
-    qint32 getPlayer3Points();
+    qint32 getPlayerTotalPoints( Types::Player player );
+    qint32 getPlayer1TotalPoints();
+    qint32 getPlayer2TotalPoints();
+    qint32 getPlayer3TotalPoints();
+    // Round 1
+    qint32 getPlayerRound1Points( Types::Player player );
+    qint32 getPlayer1Round1Points();
+    qint32 getPlayer2Round1Points();
+    qint32 getPlayer3Round1Points();
+    // Round 2
+    qint32 getPlayerRound2Points( Types::Player player );
+    qint32 getPlayer1Round2Points();
+    qint32 getPlayer2Round2Points();
+    qint32 getPlayer3Round2Points();
 
     // Getter for the current leader
     Types::Player getCurrentWinner();
 
 protected:
     // Players point totals
-    qint32 m_player1Total;
-    qint32 m_player2Total;
-    qint32 m_player3Total;
+    // Round 1
+    qint32 m_player1Round1Total;
+    qint32 m_player2Round1Total;
+    qint32 m_player3Round1Total;
+    // Round 2
+    qint32 m_player1Round2Total;
+    qint32 m_player2Round2Total;
+    qint32 m_player3Round2Total;
 
 private:
     // Hidden constructors and equals operator
@@ -46,6 +64,9 @@ private:
     PointManager( const PointManager& );
     PointManager& operator=( const PointManager& );
     ~PointManager();
+
+    // Round indicator
+    bool m_firstRound;
 
     // Actual instance
     static PointManager* m_instance;
