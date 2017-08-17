@@ -40,7 +40,7 @@ protected slots:
     void onCategorySelected( Types::Category );
 
     // From Jeopardy Board
-    void receivedControlBack( bool );
+    void receivedControlBack( bool, bool );
 
 protected:
     // Spin counter

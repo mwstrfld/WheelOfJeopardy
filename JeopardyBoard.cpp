@@ -75,8 +75,9 @@ void JeopardyBoard::onCategoryChosen( Types::Player player, Types::Category cate
     }
     else
     {
-        // Just give control back for now?
-        emit passBackControl( false );
+        // Out of questions in category,
+        // let player spin again
+        emit passBackControl( true, false );
     }
 }
 
@@ -140,7 +141,7 @@ void JeopardyBoard::onAnswerSubmitted( QString answer, bool timedOut )
 
     // Pass back control, can use token
     // if not correct or timed out
-    emit passBackControl( timedOut || !correct );
+    emit passBackControl( false, timedOut || !correct );
 }
 
 

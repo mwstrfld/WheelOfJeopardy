@@ -44,7 +44,7 @@ WheelOfFortuneBoard::WheelOfFortuneBoard( QWidget* parent )
     connect( m_ui->player3NameLineEdit, SIGNAL( textChanged(QString) ), SLOT( onPlayer3NameChange(QString) ) );
     connect( this, SIGNAL( roundSwitch() ), m_jeopardyBoard, SLOT( onRoundSwitch() ) );
     connect( this, SIGNAL( categoryChosen(Types::Player, Types::Category) ), m_jeopardyBoard, SLOT( onCategoryChosen(Types::Player, Types::Category) ) );
-    connect( m_jeopardyBoard, SIGNAL( passBackControl(bool) ), this, SLOT( receivedControlBack(bool) ) );
+    connect( m_jeopardyBoard, SIGNAL( passBackControl(bool, bool) ), this, SLOT( receivedControlBack(bool, bool) ) );
 
     // Initialize the Scoreboard Player names
     auto player1Item = new QTableWidgetItem( m_player1Name );
@@ -493,41 +493,44 @@ void WheelOfFortuneBoard::updateStatusLabel()
 }
 
 
-void WheelOfFortuneBoard::receivedControlBack( bool canUseToken )
+void WheelOfFortuneBoard::receivedControlBack( bool spinAgain, bool canUseToken )
 {
-    // Get the Point Manager
-    PointManager* pm = PointManager::instance();
-
-    // Reset the Scoreboard scores based on round
-    if( m_firstRound )
+    if( !spinAgain )
     {
-        // Player 1
-        auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 1 );
-        scoreItem->setText( QString::number( pm->getPlayer1Round1Points() ) );
-        // Player 2
-        scoreItem = m_ui->scoreboardTableWidget->item( 1, 1 );
-        scoreItem->setText( QString::number( pm->getPlayer2Round1Points() ) );
-        // Player 3
-        scoreItem = m_ui->scoreboardTableWidget->item( 2, 1 );
-        scoreItem->setText( QString::number( pm->getPlayer3Round1Points() ) );
-    }
-    else
-    {
-        // Player 1
-        auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 2 );
-        scoreItem->setText( QString::number( pm->getPlayer1Round2Points() ) );
-        // Player 2
-        scoreItem = m_ui->scoreboardTableWidget->item( 1, 2 );
-        scoreItem->setText( QString::number( pm->getPlayer2Round2Points() ) );
-        // Player 3
-        scoreItem = m_ui->scoreboardTableWidget->item( 2, 2 );
-        scoreItem->setText( QString::number( pm->getPlayer3Round2Points() ) );
-    }
+        // Get the Point Manager
+        PointManager* pm = PointManager::instance();
 
-    // Taking advantage of lose turn logic if they
-    // can use a token, if not, advance the turn
-    if( canUseToken )
-        loseTurn();
-    else
-        advanceTurn();
+        // Reset the Scoreboard scores based on round
+        if( m_firstRound )
+        {
+            // Player 1
+            auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 1 );
+            scoreItem->setText( QString::number( pm->getPlayer1Round1Points() ) );
+            // Player 2
+            scoreItem = m_ui->scoreboardTableWidget->item( 1, 1 );
+            scoreItem->setText( QString::number( pm->getPlayer2Round1Points() ) );
+            // Player 3
+            scoreItem = m_ui->scoreboardTableWidget->item( 2, 1 );
+            scoreItem->setText( QString::number( pm->getPlayer3Round1Points() ) );
+        }
+        else
+        {
+            // Player 1
+            auto scoreItem = m_ui->scoreboardTableWidget->item( 0, 2 );
+            scoreItem->setText( QString::number( pm->getPlayer1Round2Points() ) );
+            // Player 2
+            scoreItem = m_ui->scoreboardTableWidget->item( 1, 2 );
+            scoreItem->setText( QString::number( pm->getPlayer2Round2Points() ) );
+            // Player 3
+            scoreItem = m_ui->scoreboardTableWidget->item( 2, 2 );
+            scoreItem->setText( QString::number( pm->getPlayer3Round2Points() ) );
+        }
+
+        // Taking advantage of lose turn logic if they
+        // can use a token, if not, advance the turn
+        if( canUseToken )
+            loseTurn();
+        else
+            advanceTurn();
+    }
 }
